@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "stats": {
         "bookings": 12,
@@ -9,4 +10,17 @@
     ],
     "orders": [],
     "menu": []
+=======
+{
+    "stats": {
+        "bookings": 12,
+        "orders": 24,
+        "revenue": 4200
+    },
+    "activity": [
+        "Server initialized"
+    ],
+    "orders": [],
+    "menu": []
+>>>>>>> c8a8d90ff3d2e36bee28407071fbf5913bbf28a5
 }
