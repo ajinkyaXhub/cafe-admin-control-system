@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One O Eight | Clean Eats & Artisan Coffee</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="menu_data.js"></script>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <div class="nav-logo-icon">☕</div>
+            <div>
+                <span class="nav-logo-text">ONE O EIGHT</span>
+                <span class="nav-logo-sub">LIFESTYLE CAFE</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#menu-section">Menu</a>
+            <a href="#info-section">Visit Us</a>
+            <a href="#booking-section">Book Table</a>
+            <a href="javascript:void(0)" onclick="openOrderModal()" class="nav-order-btn">🛵 Order Online</a>
+            <a href="#booking-section" class="nav-cta">Reserve</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Curated for Wellness</div>
+            <h1>Clean Eats for <em>Peak</em> Performance</h1>
+            <p class="hero-desc">Experience our health-forward menu designed for holistic wellbeing. From artisan coffee to wholefood smoothies, we fuel your lifestyle.</p>
+            <div class="hero-actions">
+                <a href="#menu-section" class="btn-primary">View Full Menu</a>
+                <a href="javascript:void(0)" onclick="openOrderModal()" class="btn-secondary">🛵 Order Online</a>
+                <a href="#booking-section" class="btn-secondary">Book a Table</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="/static/uploads/Screenshot 2026-05-05 160426.png" alt="Cafe Interior" class="hero-img-main">
+            <img src="/static/uploads/Screenshot 2026-05-05 160616.png" alt="Cafe Seating" class="hero-img-small">
+            <div class="hero-float-card">
+                <span class="float-emoji">🥑</span>
+                <div>
+                    <span class="float-title">Sugar Free</span>
+                    <span class="float-label">100% Natural</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-strip">
+        <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Wholefood</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Added Sugar</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">Protein Options</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">Artisan</span>
+            <span class="stat-label">Small Batch</span>
+        </div>
+    </div>
+
+    <section id="menu-section" class="menu-section">
+        <div class="section-header">
+            <span class="section-eyebrow">Our Menu</span>
+            <h2>Eat Clean. Live Better.</h2>
+            <p>Every item is carefully crafted using premium, wholefood ingredients to nourish your body.</p>
+        </div>
+
+        <div class="category-tabs">
+            <button class="cat-tab active" data-cat="all">All Items</button>
+            <button class="cat-tab" data-cat="coffee">Coffee</button>
+            <button class="cat-tab" data-cat="smoothies">Smoothies</button>
+            <button class="cat-tab" data-cat="cold">Cold Coffee</button>
+            <button class="cat-tab" data-cat="wellness">Wellness</button>
+        </div>
+
+        <!-- Coffee Category -->
+        <div class="category-block" data-cat="coffee">
+            <div class="category-heading">
+                <span class="category-emoji">☕</span>
+                <h3>Artisan Coffee</h3>
+                <div class="category-line"></div>
+            </div>
+            <div class="menu-grid" id="grid-coffee">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+
+        <!-- Smoothies Category -->
+        <div class="category-block" data-cat="smoothies">
+            <div class="category-heading">
+                <span class="category-emoji">🥤</span>
+                <h3>Wholefood Smoothies</h3>
+                <div class="category-line"></div>
+            </div>
+            <div class="menu-grid" id="grid-smoothies">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+
+        <!-- Cold Coffee Category -->
+        <div class="category-block" data-cat="cold">
+            <div class="category-heading">
+                <span class="category-emoji">🧊</span>
+                <h3>Cold Coffee</h3>
+                <div class="category-line"></div>
+            </div>
+            <div class="menu-grid" id="grid-cold">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+
+        <!-- Wellness Drinks Category -->
+        <div class="category-block" data-cat="wellness">
+            <div class="category-heading">
+                <span class="category-emoji">🌿</span>
+                <h3>Wellness & Hydration</h3>
+                <div class="category-line"></div>
+            </div>
+            <div class="menu-grid" id="grid-wellness">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Info / Visit Us Section -->
+    <section id="info-section" class="info-section">
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-card-icon">📍</div>
+                <h3>Find Us</h3>
+                <p>Pingale Farms, S Main Rd, behind Blossom Boulevard, Ashok Chakra Society, Iricen Railway Colony, Koregaon Park, Pune, Maharashtra 411001</p>
+                <a href="https://maps.google.com/?q=Pingale+Farms+Koregaon+Park+Pune" target="_blank" class="info-link">Get Directions →</a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🕐</div>
+                <h3>Opening Hours</h3>
+                <div class="hours-list">
+                    <div class="hours-row">
+                        <span class="day">Mon – Sun</span>
+                        <span class="time">8:00 AM – 9:30 PM</span>
+                    </div>
+                    <div class="hours-badge">Open Today</div>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📞</div>
+                <h3>Contact</h3>
+                <a href="tel:+917071081080" class="info-phone">070710 81080</a>
+                <div class="info-divider"></div>
+                <div class="info-card-icon" style="font-size:16px; margin-top:8px;">🌐</div>
+                <a href="https://oneoeightcafe.com" target="_blank" class="info-link">oneoeightcafe.com</a>
+                <div style="margin-top:18px;">
+                    <button onclick="openOrderModal()" class="btn-order-now">🛵 Order Online</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking-section" class="booking-section">
+        <div class="booking-wrap">
+            <div class="section-header">
+                <span class="section-eyebrow">Table Booking</span>
+                <h2>Reserve Your Spot</h2>
+                <p>Join us for a peaceful meal in our serene space. We recommend booking in advance for peak hours.</p>
+            </div>
+            <div class="form-grid">
+                <div class="form-field">
+                    <label>Date</label>
+                    <input type="date" class="form-input">
+                </div>
+                <div class="form-field">
+                    <label>Time</label>
+                    <input type="time" class="form-input">
+                </div>
+                <div class="form-field full">
+                    <label>Guests</label>
+                    <select class="form-input">
+                        <option>1 Guest</option>
+                        <option>2 Guests</option>
+                        <option>3 Guests</option>
+                        <option>4 Guests</option>
+                        <option>5+ Guests</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="confirmBooking()" class="btn-book">Confirm Reservation</button>
+            <div id="confirmMsg" class="confirm-msg" style="display: none;"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <span class="footer-logo-icon">☕</span>
+                    <div>
+                        <strong>ONE O EIGHT</strong>
+                        <span class="footer-sub">LIFESTYLE CAFE</span>
+                    </div>
+                </div>
+                <p class="footer-tagline">Eat Clean. Live Better.<br>Fuel your lifestyle with wholefood goodness.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Visit Us</h4>
+                <p class="footer-detail">📍 Pingale Farms, S Main Rd, behind Blossom Boulevard, Ashok Chakra Society, Iricen Railway Colony, Koregaon Park, Pune 411001</p>
+                <p class="footer-detail">📞 <a href="tel:+917071081080" class="footer-link">070710 81080</a></p>
+                <p class="footer-detail">🌐 <a href="https://oneoeightcafe.com" target="_blank" class="footer-link">oneoeightcafe.com</a></p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Hours</h4>
+                <p class="footer-detail">Mon – Sun</p>
+                <p class="footer-hours">8:00 AM – 9:30 PM</p>
+                <button onclick="openOrderModal()" class="footer-order-btn">🛵 Order Online</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 One O Eight Lifestyle Cafe. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Order Online Modal -->
+    <div class="order-modal-overlay" id="order-modal-overlay" onclick="closeOrderModal()"></div>
+    <div class="order-modal" id="order-modal">
+        <button class="order-modal-close" onclick="closeOrderModal()">×</button>
+        <div class="order-modal-header">
+            <div class="order-modal-icon">🛵</div>
+            <h2>Order Online</h2>
+            <p>Get One O Eight delivered right to your door</p>
+        </div>
+        <div class="order-platforms">
+            <a href="https://www.swiggy.com/restaurants/one-o-eight" target="_blank" class="platform-btn swiggy">
+                <span class="platform-logo">🔶</span>
+                <div>
+                    <span class="platform-name">Swiggy</span>
+                    <span class="platform-sub">Fast Delivery</span>
+                </div>
+                <span class="platform-arrow">→</span>
+            </a>
+            <a href="https://www.zomato.com/pune/one-o-eight" target="_blank" class="platform-btn zomato">
+                <span class="platform-logo">🔴</span>
+                <div>
+                    <span class="platform-name">Zomato</span>
+                    <span class="platform-sub">Track Your Order</span>
+                </div>
+                <span class="platform-arrow">→</span>
+            </a>
+            <a href="https://oneoeightcafe.com" target="_blank" class="platform-btn website">
+                <span class="platform-logo">🌐</span>
+                <div>
+                    <span class="platform-name">Our Website</span>
+                    <span class="platform-sub">oneoeightcafe.com</span>
+                </div>
+                <span class="platform-arrow">→</span>
+            </a>
+        </div>
+        <p class="order-modal-note">📞 Or call us directly: <a href="tel:+917071081080">070710 81080</a></p>
+    </div>
+
+    <!-- Payment Selection Modal -->
+    <div class="order-modal-overlay" id="payment-modal-overlay" onclick="closePaymentModal()"></div>
+    <div class="order-modal payment-modal" id="payment-modal">
+        <button class="order-modal-close" onclick="closePaymentModal()">×</button>
+        <div class="order-modal-header">
+            <div class="order-modal-icon">💳</div>
+            <h2>Choose Payment</h2>
+            <p>Select your preferred way to pay</p>
+        </div>
+        
+        <div class="payment-options">
+            <div class="payment-option-card" onclick="selectPaymentMethod('qr')">
+                <div class="payment-option-icon">📱</div>
+                <div class="payment-option-info">
+                    <span class="payment-option-title">Pay Now (Online QR)</span>
+                    <span class="payment-option-desc">Scan our UPI QR code to pay instantly</span>
+                </div>
+            </div>
+            
+            <div class="payment-option-card" onclick="selectPaymentMethod('counter')">
+                <div class="payment-option-icon">🏪</div>
+                <div class="payment-option-info">
+                    <span class="payment-option-title">Pay at Counter</span>
+                    <span class="payment-option-desc">Pay with cash or card when you arrive</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="qr-display" class="qr-display" style="display: none;">
+            <div class="qr-container">
+                <!-- QR code visualization using CSS and icons -->
+                <div class="qr-code-placeholder">
+                    <div class="qr-pattern"></div>
+                    <div class="qr-logo">☕</div>
+                </div>
+            </div>
+            <p class="qr-total">Amount to Pay: <span id="qr-amount-value">₹0</span></p>
+            <p class="qr-instruction">Scan this QR with any UPI app (GPay, PhonePe, Paytm)</p>
+            <button class="btn-confirm-payment" onclick="finalizeOrder('Online QR')">I have paid</button>
+        </div>
+
+        <div id="counter-display" class="counter-display" style="display: none;">
+            <div class="counter-confirmation">
+                <div class="confirmation-icon">✅</div>
+                <p>Great! Please pay <strong id="counter-amount-value">₹0</strong> at the counter.</p>
+                <p class="confirmation-note">Your order is being prepared!</p>
+            </div>
+            <button class="btn-confirm-payment" onclick="finalizeOrder('Pay at Counter')">Confirm Order</button>
+        </div>
+    </div>
+
+    <!-- Cart Floating Button -->
+    <button class="cart-float-btn" id="cart-btn" onclick="toggleCart()">
+        🛍️ <span class="cart-badge" id="cart-badge">0</span>
+    </button>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Items injected by JS -->
+            <div class="empty-cart-msg">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary-line">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <div class="cart-summary-line">
+                <span>Taxes (5%)</span>
+                <span id="cart-tax">₹0</span>
+            </div>
+            <div class="cart-summary-line total">
+                <span>Total</span>
+                <span id="cart-total">₹0</span>
+            </div>
+            <button class="btn-checkout" onclick="checkout()" id="checkout-btn" disabled>Place Order</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function openOrderModal() {
+            document.getElementById('order-modal').classList.add('active');
+            document.getElementById('order-modal-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeOrderModal() {
+            document.getElementById('order-modal').classList.remove('active');
+            document.getElementById('order-modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openPaymentModal(amount) {
+            document.getElementById('payment-modal').classList.add('active');
+            document.getElementById('payment-modal-overlay').classList.add('active');
+            document.getElementById('qr-amount-value').innerText = formatCurrency(amount);
+            document.getElementById('counter-amount-value').innerText = formatCurrency(amount);
+            
+            // Reset views
+            document.querySelector('.payment-options').style.display = 'flex';
+            document.getElementById('qr-display').style.display = 'none';
+            document.getElementById('counter-display').style.display = 'none';
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.remove('active');
+            document.getElementById('payment-modal-overlay').classList.remove('active');
+            if (!document.getElementById('order-modal').classList.contains('active')) {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function selectPaymentMethod(method) {
+            document.querySelector('.payment-options').style.display = 'none';
+            if (method === 'qr') {
+                document.getElementById('qr-display').style.display = 'block';
+            } else {
+                document.getElementById('counter-display').style.display = 'block';
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeOrderModal();
+                closePaymentModal();
+            }
+        });
+
+        // Nav scroll shadow
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 30) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll-reveal animation for sections
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.info-card, .category-block, .booking-wrap, .stat-item').forEach(el => {
+            el.classList.add('reveal-on-scroll');
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

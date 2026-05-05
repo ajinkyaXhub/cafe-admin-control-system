@@ -1,0 +1,12 @@
+{
+    "stats": {
+        "bookings": 12,
+        "orders": 24,
+        "revenue": 4200
+    },
+    "activity": [
+        "Server initialized"
+    ],
+    "orders": [],
+    "menu": []
+}
