@@ -6,16 +6,18 @@ import json
 import webbrowser
 import threading
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 CORS(app)
-static_folder = os.getcwd()
-UPLOAD_FOLDER = os.path.join(static_folder, 'static', 'uploads')
-DATA_FILE = os.path.join(static_folder, 'db.json')
+root_dir = os.getcwd()
+UPLOAD_FOLDER = os.path.join(root_dir, 'static', 'uploads')
+DATA_FILE = os.path.join(root_dir, 'db.json')
 
+# Ensure upload directory exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+# Initialize DB if not exists
 def init_db():
-    if not os.path.exists(DATA_FILE):
+    if not os.path.exists(DATA_FILE) or os.path.getsize(DATA_FILE) == 0:
         default_data = {
             "stats": {"bookings": 12, "orders": 24, "revenue": 4200},
             "activity": ["Server initialized"],
@@ -28,8 +30,16 @@ def init_db():
 init_db()
 
 def get_db():
-    with open(DATA_FILE, 'r') as f:
-        return json.load(f)
+    try:
+        if not os.path.exists(DATA_FILE) or os.path.getsize(DATA_FILE) == 0:
+            init_db()
+        with open(DATA_FILE, 'r') as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        # If corrupted, reset
+        init_db()
+        with open(DATA_FILE, 'r') as f:
+            return json.load(f)
 
 def save_db(data):
     with open(DATA_FILE, 'w') as f:
@@ -37,11 +47,11 @@ def save_db(data):
 
 @app.route('/')
 def index():
-    return send_from_directory(static_folder, 'index.html')
+    return send_from_directory(root_dir, 'index.html')
 
 @app.route('/admin')
 def serve_admin():
-    return send_from_directory(static_folder, 'admin.html')
+    return send_from_directory(root_dir, 'admin.html')
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -68,17 +78,13 @@ def upload_file():
         file.save(os.path.join(UPLOAD_FOLDER, filename))
         return jsonify({"url": f"/static/uploads/{filename}"})
 
-@app.route('/static/<path:path>')
-def serve_uploads(path):
-    return send_from_directory(os.path.join(static_folder, 'static'), path)
-
 @app.route('/<path:path>')
 def serve_static(path):
-    # Try serving from root first (for html/js/css)
-    if os.path.exists(os.path.join(static_folder, path)):
-        return send_from_directory(static_folder, path)
-    # Then try static folder
-    return send_from_directory(os.path.join(static_folder, 'static'), path)
+    # Try serving from root first (for html/js/css/etc in project root)
+    if os.path.exists(os.path.join(root_dir, path)):
+        return send_from_directory(root_dir, path)
+    # Fallback to static folder
+    return send_from_directory(os.path.join(root_dir, 'static'), path)
 
 if __name__ == '__main__':
     print("Starting Cafe Backend Server with JSON DB...")
