@@ -44,7 +44,7 @@ function showToast(message, type = 'success', duration = 3500) {
 
 // Local State (Sync with server if possible)
 let cart = [];
-let adminStats = { bookings: 12, orders: 24, revenue: 4200 };
+let adminStats = { bookings: 0, orders: 0, revenue: 0 };
 let menuItems = initialMenu;
 let adminActivity = [];
 let fullOrdersList = [];
@@ -81,7 +81,7 @@ async function saveServerData() {
 
     // Push to backend
     try {
-        await fetch('/api/data', {
+        const res = await fetch('/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -91,6 +91,11 @@ async function saveServerData() {
                 menu: menuItems
             })
         });
+        const result = await res.json();
+        if (result.status === 'error') {
+            console.warn("Persistence Note:", result.message);
+            // Don't show error to customer, but maybe log for admin
+        }
     } catch (e) {
         console.error("Server sync failed", e);
     }

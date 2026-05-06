@@ -19,7 +19,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def init_db():
     if not os.path.exists(DATA_FILE) or os.path.getsize(DATA_FILE) == 0:
         default_data = {
-            "stats": {"bookings": 12, "orders": 24, "revenue": 4200},
+            "stats": {"bookings": 0, "orders": 0, "revenue": 0},
             "activity": ["Server initialized"],
             "orders": [],
             "menu": [] 
@@ -42,8 +42,15 @@ def get_db():
             return json.load(f)
 
 def save_db(data):
-    with open(DATA_FILE, 'w') as f:
-        json.dump(data, f, indent=4)
+    try:
+        with open(DATA_FILE, 'w') as f:
+            json.dump(data, f, indent=4)
+        return True
+    except Exception as e:
+        print(f"Error saving to DB: {e}")
+        # On Vercel, this will fail. We could use /tmp/db.json as a fallback
+        # but it will be wiped on every cold start.
+        return False
 
 @app.route('/')
 def index():
@@ -60,8 +67,8 @@ def get_data():
 @app.route('/api/data', methods=['POST'])
 def update_data():
     data = request.json
-    save_db(data)
-    return jsonify({"status": "success"})
+    success = save_db(data)
+    return jsonify({"status": "success" if success else "error", "message": "Data updated" if success else "Database is read-only (e.g. on Vercel)"})
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():

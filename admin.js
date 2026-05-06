@@ -55,7 +55,7 @@ async function loadServerData() {
 
 async function saveServerData() {
     try {
-        await fetch('/api/data', {
+        const res = await fetch('/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -65,6 +65,10 @@ async function saveServerData() {
                 menu: menuItems
             })
         });
+        const result = await res.json();
+        if (result.status === 'error') {
+            alert("Persistence Warning: " + result.message + "\n\nData will be lost on server restart. Please connect a real database for permanent storage.");
+        }
     } catch (e) {
         console.error("Server sync failed", e);
     }
