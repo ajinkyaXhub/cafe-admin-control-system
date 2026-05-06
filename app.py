@@ -17,8 +17,12 @@ CORS(app)
 # Local Fallback: SQLite
 db_url = os.environ.get('MYSQL_URL')
 if not db_url:
-    # Use SQLite for local development if MySQL URL is not provided
-    db_url = 'sqlite:///' + os.path.join(os.getcwd(), 'local.db')
+    if os.environ.get('VERCEL'):
+        # On Vercel, the only writable directory is /tmp
+        db_url = 'sqlite:////tmp/local.db'
+    else:
+        # Local development
+        db_url = 'sqlite:///' + os.path.join(os.getcwd(), 'local.db')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -56,23 +60,21 @@ class ActivityLog(db.Model):
 # --- INITIALIZATION ---
 
 def init_db():
-    with app.app_context():
-        db.create_all()
-        
-        # Initialize stats if empty
-        if not Stat.query.filter_by(key='bookings').first():
-            db.session.add(Stat(key='bookings', value=0))
-        if not Stat.query.filter_by(key='orders').first():
-            db.session.add(Stat(key='orders', value=0))
-        if not Stat.query.filter_by(key='revenue').first():
-            db.session.add(Stat(key='revenue', value=0))
-        
-        # Initialize menu if empty
-        if Menu.query.count() == 0:
-            # Try to load from initial_menu or db.json if exists
-            try:
-                # Assuming initialMenu is available or we use a hardcoded list
-                # For safety, I'll use the ones from our last db.json state
+    try:
+        with app.app_context():
+            db.create_all()
+            
+            # Initialize stats if empty
+            if not Stat.query.filter_by(key='bookings').first():
+                db.session.add(Stat(key='bookings', value=0))
+            if not Stat.query.filter_by(key='orders').first():
+                db.session.add(Stat(key='orders', value=0))
+            if not Stat.query.filter_by(key='revenue').first():
+                db.session.add(Stat(key='revenue', value=0))
+            
+            # Initialize menu if empty
+            if Menu.query.count() == 0:
+                print("Initializing Menu items...")
                 default_menu = [
                     { "id": 1, "name": "Flat White", "price": 250, "cat": "coffee", "img": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=600", "tags": [] },
                     { "id": 2, "name": "Cappuccino", "price": 250, "cat": "coffee", "img": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=600", "tags": [] },
@@ -101,10 +103,10 @@ def init_db():
                 ]
                 for item in default_menu:
                     db.session.add(Menu(id=item['id'], name=item['name'], price=item['price'], cat=item['cat'], img=item['img'], tags=item['tags']))
-            except Exception as e:
-                print(f"Menu init failed: {e}")
-        
-        db.session.commit()
+            
+            db.session.commit()
+    except Exception as e:
+        print(f"Database Initialization Error: {e}")
 
 init_db()
 
