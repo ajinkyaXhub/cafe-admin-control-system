@@ -45,7 +45,7 @@ function showToast(message, type = 'success', duration = 3500) {
 // Local State (Sync with server if possible)
 let cart = [];
 let adminStats = { bookings: 0, orders: 0, revenue: 0 };
-let menuItems = initialMenu;
+let menuItems = [];
 let adminActivity = [];
 let fullOrdersList = [];
 

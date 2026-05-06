@@ -1,5 +1,5 @@
 // Global State
-let menuItems = initialMenu;
+let menuItems = [];
 let adminStats = { bookings: 0, orders: 0, revenue: 0 };
 let adminActivity = [];
 let fullOrdersList = [];
